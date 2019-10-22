@@ -7,6 +7,8 @@ class UserJSONRenderer(JSONRenderer):
     charset = 'utf-8'
 
     def render(self, data, media_type=None, renderer_context=None):
+        tokenStr = 'Bearer'
+
         # If the view throws an error (such as the user can't be authenticated
         # or something similar), `data` will contain an `errors` key. We want
         # the default JSONRenderer to handle rendering errors, so we need to
@@ -16,7 +18,7 @@ class UserJSONRenderer(JSONRenderer):
         # If we receive a `token` key as part of the response, it will be a
         # byte object. Byte objects don't serialize well, so we need to
         # decode it before rendering the User object.
-        token = data.get('token', None)
+        token = data.get(tokenStr, None)
 
         if errors is not None:
             # As mentioned above, we will let the default JSONRenderer handle
@@ -26,10 +28,8 @@ class UserJSONRenderer(JSONRenderer):
         if token is not None and isinstance(token, bytes):
             # Also as mentioned above, we will decode `token` if it is of type
             # bytes.
-            data['token'] = token.decode('utf-8')
+            data[tokenStr] = token.decode('utf-8')
 
         # Finally, we can render our data under the "user" namespace.
-        return json.dumps({
-            'user': data
-        })
+        return json.dumps(data)
 

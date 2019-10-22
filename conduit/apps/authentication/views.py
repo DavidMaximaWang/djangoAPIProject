@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .renderers import UserJSONRenderer
 
 from .serializers import (LoginSerializer, RegistrationSerializer, UserSerializer,)
+from .models import User
 
 
 class RegistrationAPIView(APIView):
@@ -16,7 +17,7 @@ class RegistrationAPIView(APIView):
     serializer_class = RegistrationSerializer
 
     def post(self, request):
-        user = request.data.get('user', {})
+        user = request.data
 
         # The create serializer, validate serializer, save serializer pattern
         # below is common and you will see it a lot throughout this course and
@@ -34,7 +35,7 @@ class LoginAPIView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        user = request.data.get('user', {})
+        user = request.data
 
         # Notice here that we do not call `serializer.save()` like we did for
         # the registration endpoint. This is because we don't  have
@@ -70,3 +71,4 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
