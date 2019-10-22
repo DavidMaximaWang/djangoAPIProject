@@ -27,7 +27,6 @@ class ProfileRetrieveAPIView(RetrieveAPIView):
         try:
             # We use the `select_related` method to avoid making unnecessary
             # database calls.
-            profiles = Profile.objects.select_related('user')
             profile = Profile.objects.select_related('user').get(
                 user__username=username
             )
