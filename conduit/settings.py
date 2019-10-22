@@ -40,8 +40,9 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rest_framework',
+    'corsheaders',
 
-    'conduit.apps.articles',
+    'conduit.apps.backends',
     'conduit.apps.authentication',
     'conduit.apps.core',
     'conduit.apps.profiles',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -131,6 +133,11 @@ STATIC_URL = '/static/'
 # `authentication.User` tells Django we are referring to the `User` model in
 # the `authentication` module. This module is registered above in a setting
 # called `INSTALLED_APPS`.
+AUTHENTICATION_BACKENDS = (
+
+'conduit.apps.backends.EmailOrUsernameAuth.EmailOrUsernameAuthBackend',)
+
+
 AUTH_USER_MODEL = 'authentication.User'
 
 REST_FRAMEWORK = {
@@ -140,3 +147,10 @@ REST_FRAMEWORK = {
        'conduit.apps.authentication.backends.JWTAuthentication',
     ),
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http://127.0.0.1:4200',
+#     'https://127.0.0.1:4200'
+# )
