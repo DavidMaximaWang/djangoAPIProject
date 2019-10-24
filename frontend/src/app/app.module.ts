@@ -7,12 +7,16 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AuthService } from './_services/auth.service';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      NavigationComponent
+      NavigationComponent,
+      HomeComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
@@ -20,7 +24,8 @@ import { AuthService } from './_services/auth.service';
       FormsModule,
       BsDropdownModule.forRoot()
    ],
-   providers: [      AuthService,
+   providers: [
+      AuthService
    ],
    bootstrap: [
       AppComponent
