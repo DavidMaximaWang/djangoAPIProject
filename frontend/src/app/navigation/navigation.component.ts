@@ -29,4 +29,7 @@ export class NavigationComponent implements OnInit {
     });
     console.log(this.model);
   }
+  loggedIn() {
+    return this.authService.loggedIn();
+  }
 }

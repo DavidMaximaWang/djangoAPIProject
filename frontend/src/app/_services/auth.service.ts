@@ -9,19 +9,22 @@ export class AuthService {
   baseUrl = 'http://localhost:8000/api/auth/';
 
   jwtHelper = new JwtHelperService();
-  decodedToken: any;
+  username: any;
 
   constructor(private http: HttpClient) {}
   login(model: any) {
     return this.http.post(this.baseUrl + 'login', model).pipe(
       map((response: any) => {
         const user = response;
+        this.username = user.username;
         if (user) {
           localStorage.setItem('token', user.token);
-          this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          console.log(this.decodedToken);
         }
       })
     );
+  }
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 }
