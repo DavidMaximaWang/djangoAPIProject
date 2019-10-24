@@ -9,6 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { MustMatchDirective } from './helpers/must-match.directive';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
       AppComponent,
       NavigationComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      MustMatchDirective
    ],
    imports: [
       BrowserModule,
