@@ -32,4 +32,8 @@ export class NavigationComponent implements OnInit {
   loggedIn() {
     return this.authService.loggedIn();
   }
+  logout() {
+    localStorage.removeItem('token');
+    this.alertify.message('logged out');
+  }
 }
